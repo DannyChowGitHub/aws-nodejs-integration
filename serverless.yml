@@ -1,0 +1,55 @@
+service: aws-nodejs-integration
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  environment:
+    S3_CSV_BUCKET: ${self:service}-${opt:stage, self:provider.stage}-csv-files
+    DB_LOCATION: ${self:service}-${opt:stage, self:provider.stage}-location
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - 'arn:aws:s3:::${self:provider.environment.S3_CSV_BUCKET}/*'
+        - 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.LOCATION_TABLE_NAME}'
+
+functions:
+  readCsv:
+    handler: index.readFile
+    events:
+      - s3:
+          bucket: ${self:provider.environment.S3_CSV_BUCKET}
+          event: s3:ObjectCreated:*
+    environment:
+      DB_LOCATION: ${self:provider.environment.LOCATION_TABLE_NAME}
+
+
+resources:
+  Resources:
+    LocationDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.LOCATION_TABLE_NAME}
+
+plugins:
+  - serverless-plugin-typescript
