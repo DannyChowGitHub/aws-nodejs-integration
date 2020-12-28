@@ -1,0 +1,38 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "us-east-1",
+      "eventTime": "2020-12-27T12:23:29.393Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "E1DOOWFD21E7B"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "127.0.0.1"
+      },
+      "responseElements": {
+        "x-amz-request-id": "DFQ0BFBNF01A2MPL",
+        "x-amz-id-2": "No2u8+f3UBA/4BiFAnV39dFxS3AQCX/VAeWifo932jOFbaFV2/jEF2E3DaOfpA2H"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "0fe3adp5-pb21-8192-622e-701efodce651",
+        "bucket": {
+          "name": "aws-nodejs-integration-dev-csv-files",
+          "ownerIdentity": {
+            "principalId": "E1DOOWFD21E7B"
+          },
+          "arn": "arn:aws:s3:::aws-nodejs-integration-dev-csv-files"
+        },
+        "object": {
+          "key": "test.csv",
+          "size": 638,
+          "eTag": "eb3ksi3naj3nc3haz3qc09fs91dfaef1",
+          "sequencer": "003P58F33A46390KK2"
+        }
+      }
+    }
+  ]
+}

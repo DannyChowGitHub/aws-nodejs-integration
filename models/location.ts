@@ -12,11 +12,11 @@ export class Location {
   id?: string;
 
   @attribute()
-  latitude?: string;
+  latitude: string;
 
   @attribute()
-  longitude?: string;
+  longitude: string;
 
   @attribute()
-  address?: string;
+  address: string;
 }
