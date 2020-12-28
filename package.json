@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -b -r ts-node/register --exit -t 99999 --recursive './**/*.test.ts'",
-    "run": "ts-node index.ts"
+    "run": "ts-node api-gateway.ts"
   },
   "repository": {
     "type": "git",

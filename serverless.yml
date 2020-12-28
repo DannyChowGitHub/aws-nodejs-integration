@@ -30,7 +30,16 @@ functions:
           event: s3:ObjectCreated:*
     environment:
       DB_LOCATION: ${self:provider.environment.LOCATION_TABLE_NAME}
-
+  readDynamo:
+    handler: api-gateway.read
+    events:
+      - http:
+          path: /locations/{id}
+          method: get
+          request:
+            parameters:
+              paths:
+                id: true
 
 resources:
   Resources:
